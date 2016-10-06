@@ -161,15 +161,7 @@ echo "done"
 #
 
 
-# Atom editor settings
-echo -n "Copying Atom settings.."
-mv -f ~/.atom ~/dotfiles_old/
-ln -s $HOME/dotfiles/atom ~/.atom
-echo "done"
-
-
 declare -a FILES_TO_SYMLINK=(
-
   'shell/shell_aliases'
   'shell/shell_config'
   'shell/shell_exports'
@@ -178,16 +170,11 @@ declare -a FILES_TO_SYMLINK=(
   'shell/bash_prompt'
   'shell/bashrc'
   'shell/zshrc'
-  'shell/ackrc'
   'shell/curlrc'
-  'shell/gemrc'
   'shell/inputrc'
-  'shell/screenrc'
-
   'git/gitattributes'
   'git/gitconfig'
   'git/gitignore'
-
 )
 
 # FILES_TO_SYMLINK="$FILES_TO_SYMLINK .vim bin" # add in vim and the binaries
@@ -314,26 +301,11 @@ main
 # install_zsh
 
 ###############################################################################
-# Atom                                                                        #
-###############################################################################
-
-# Copy over Atom configs
-#cp -r atom/packages.list $HOME/.atom
-
-# Install community packages
-#apm list --installed --bare - get a list of installed packages
-#apm install --packages-file $HOME/.atom/packages.list
-
-###############################################################################
 # Zsh                                                                         #
 ###############################################################################
 
 # Install Zsh tweaks
-#ln -s ~/dotfiles/zsh/themes/nick.zsh-theme $HOME/.oh-my-zsh/themes
-ln -s ~/dotfiles/zsh/custom/plugins/git-prune $HOME/.oh-my-zsh/custom/plugins
-
-# Don’t display the annoying prompt when quitting iTerm
-defaults write com.googlecode.iterm2 PromptOnQuit -bool false
+ln -s ~/dotfiles/zsh/custom/themes/powerlevel9k.zsh-theme $HOME/.oh-my-zsh/custom/themes
 
 # Reload zsh settings
 source ~/.zshrc
