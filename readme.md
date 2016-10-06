@@ -1,6 +1,10 @@
 # dotfiles for Josh Rhoades
 This is my collection of dotfiles for use across my OSX machines. This should be cloned to the Home directory (`~/`), resulting in a path of `~/dotfiles`.
 
+## Settings
+- [OSX Settings](readme.osx.md)
+- ZSH Settings
+
 ## Pre-Installation
 
 ### Install xCode CLI Tools

@@ -25,7 +25,7 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 ###############################################################################
 # General                                                                     #
 ###############################################################################
-
+echo ":: OSX: SETTING UP GENERAL SETTINGS ::"
 # Set computer name (as done via System Preferences → Sharing)
 #sudo scutil --set ComputerName $COMPUTERNAME
 #sudo scutil --set HostName $HOSTNAME
@@ -78,7 +78,7 @@ defaults write com.apple.dock itunes-notifications -bool true
 ###############################################################################
 # Menubar                                                                     #
 ###############################################################################
-
+echo ":: OSX: SETTING UP MENUBAR ::"
 # Disable transparency in the menu bar and elsewhere
 defaults write com.apple.universalaccess reduceTransparency -bool true
 
@@ -108,7 +108,7 @@ defaults write com.apple.menuextra.battery ShowTime -string "YES"
 ###############################################################################
 # Terminal                                                                    #
 ###############################################################################
-
+echo ":: OSX: SETTING UP TERMINAL ::"
 # Only use UTF-8 in Terminal.app
 defaults write com.apple.terminal StringEncodings -array 4
 
@@ -129,7 +129,7 @@ defaults write com.apple.terminal SecureKeyboardEntry -bool true
 ###############################################################################
 # Time Machine                                                                #
 ###############################################################################
-
+echo ":: OSX: SETTING UP TIME MACHINE ::"
 # Prevent Time Machine from prompting to use new hard drives as backup volume
 defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
 
@@ -139,7 +139,7 @@ hash tmutil &> /dev/null && sudo tmutil disablelocal
 ###############################################################################
 # Safari                                                                      #
 ###############################################################################
-
+echo ":: OSX: SETTING UP SAFARI ::"
 # Privacy: don’t send search queries to Apple
 defaults write com.apple.Safari UniversalSearchEnabled -bool false
 defaults write com.apple.Safari SuppressSearchSuggestions -bool true
@@ -212,7 +212,7 @@ defaults write com.apple.mail DisableInlineAttachmentViewing -bool true
 ###############################################################################
 # Activity Monitor                                                            #
 ###############################################################################
-
+echo ":: OSX: SETTING UP ACTIVITY MONITOR ::"
 # Show the main window when launching Activity Monitor
 defaults write com.apple.ActivityMonitor OpenMainWindow -bool true
 
@@ -229,7 +229,7 @@ defaults write com.apple.ActivityMonitor SortDirection -int 0
 ###############################################################################
 # Interfaces: trackpad, mouse, keyboard, bluetooth, etc.
 ###############################################################################
-
+echo ":: OSX: SETTING UP DEVICES AND INPUTS ::"
 # Disable “natural” (Lion-style) scrolling
 defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
 
@@ -251,7 +251,7 @@ defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 ###############################################################################
 # Screen
 ###############################################################################
-
+echo ":: OSX: SETTING UP SCREEN ::"
 # Require password immediately after sleep or screen saver.
 defaults write com.apple.screensaver askForPassword -int 1
 defaults write com.apple.screensaver askForPasswordDelay -int 0
@@ -281,7 +281,7 @@ defaults write com.apple.dock mru-spaces -bool false
 ###############################################################################
 # Finder
 ###############################################################################
-
+echo ":: OSX: SETTING UP FINDER ::"
 # Show the ~/Library folder.
 chflags nohidden ~/Library
 
@@ -330,9 +330,6 @@ defaults write com.apple.finder WarnOnEmptyTrash -bool false
 
 # Enable auto-correct
 defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool true
-
-# Disable the “Are you sure you want to open this application?” dialog
-defaults write com.apple.LaunchServices LSQuarantine -bool false
 
 # Expand print panel by default
 defaults write NSGlobalDomain PMPrintingExpandedStateForPrint -bool true
@@ -401,7 +398,7 @@ defaults write com.apple.frameworks.diskimages skip-verify-remote -bool true
 ###############################################################################
 # Dock                                                                        #
 ###############################################################################
-
+echo ":: OSX: SETTING UP DOCK ::"
 # Enable highlight hover effect for the grid view of a stack (Dock)
 defaults write com.apple.dock mouse-over-hilite-stack -bool true
 
@@ -464,7 +461,7 @@ defaults write com.apple.dock wvous-bl-modifier -int 0
 ###############################################################################
 # Mac App Store                                                               #
 ###############################################################################
-
+echo ":: OSX: SETTING UP APP STORE ::"
 # Enable the WebKit Developer Tools in the Mac App Store
 defaults write com.apple.appstore WebKitDeveloperExtras -bool true
 
@@ -495,14 +492,14 @@ defaults write com.apple.commerce AutoUpdateRestartRequired -bool true
 ###############################################################################
 # Photos                                                                      #
 ###############################################################################
-
+echo ":: OSX: SETTING UP PHOTOS ::"
 # Prevent Photos from opening automatically when devices are plugged in
 defaults -currentHost write com.apple.ImageCapture disableHotPlug -bool true
 
 ###############################################################################
 # Messages                                                                    #
 ###############################################################################
-
+echo ":: OSX: SETTING UP MESSAGES ::"
 # Disable automatic emoji substitution (i.e. use plain text smileys)
 defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "automaticEmojiSubstitutionEnablediMessage" -bool false
 
@@ -515,7 +512,7 @@ defaults write com.apple.messageshelper.MessageController SOInputLineSettings -d
 ###############################################################################
 # Google Chrome & Google Chrome Canary                                        #
 ###############################################################################
-
+echo ":: OSX: SETTING UP GOOGLE CHROME AND CANARY ::"
 # Allow installing user scripts via GitHub Gist or Userscripts.org
 defaults write com.google.Chrome ExtensionInstallSources -array "https://gist.githubusercontent.com/" "http://userscripts.org/*"
 defaults write com.google.Chrome.canary ExtensionInstallSources -array "https://gist.githubusercontent.com/" "http://userscripts.org/*"
@@ -539,7 +536,7 @@ defaults write com.google.Chrome.canary PMPrintingExpandedStateForPrint2 -bool t
 ###############################################################################
 # Transmission.app                                                            #
 ###############################################################################
-
+echo ":: OSX: SETTING UP TRANSMISSION ::"
 # Use `~/Documents/Torrents` to store incomplete downloads
 defaults write org.m0k.transmission UseIncompleteDownloadFolder -bool true
 defaults write org.m0k.transmission IncompleteDownloadFolder -string "${HOME}/Documents/Torrents"
@@ -565,7 +562,7 @@ defaults write org.m0k.transmission BlocklistAutoUpdate -bool true
 ###############################################################################
 # Twitter.app                                                                 #
 ###############################################################################
-
+echo ":: OSX: SETTING UP TWITTER ::"
 # Disable smart quotes as it’s annoying for code tweets
 defaults write com.twitter.twitter-mac AutomaticQuoteSubstitutionEnabled -bool false
 
@@ -590,7 +587,7 @@ defaults write com.twitter.twitter-mac HideInBackground -bool true
 ###############################################################################
 # Address Book, Dashboard, iCal, TextEdit, and Disk Utility                   #
 ###############################################################################
-
+echo ":: OSX: SETTING UP ADDRESS BOOK, DASHBOARD, ICAL, TEXTEDIT, AND DISK UTILITY ::"
 # Enable the debug menu in Address Book
 defaults write com.apple.addressbook ABShowDebugMenu -bool true
 
@@ -615,18 +612,49 @@ defaults write com.apple.DiskUtility advanced-image-options -bool true
 # SSD                                                                         #
 ###############################################################################
 
-# Disable the sudden motion sensor as it’s not useful for SSDs
-sudo pmset -a sms 0
+# Turn off local Time Machine snapshots [laptops only]
+echo ":: OSX SSD: DISABLING TIME MACHINE SNAPSHOTS ::"
+sudo tmutil disablelocal
 
-# Disable hibernation (speeds up entering sleep mode)
+# Turn off hibernation [laptops only]
+echo ":: OSX SSD: DISABLING HIBERNATION ::"
 sudo pmset -a hibernatemode 0
-
 # Remove the sleep image file to save disk space
-sudo rm /private/var/vm/sleepimage
+sudo command rm /var/vm/sleepimage
 # Create a zero-byte file instead…
 sudo touch /private/var/vm/sleepimage
 # …and make sure it can’t be rewritten
 sudo chflags uchg /private/var/vm/sleepimage
+
+# Turn off sudden motion sensor [no HDD only]
+echo ":: OSX SSD: DISABLING SUDDEN MOTION SENSOR ::"
+sudo pmset -a sms 0
+
+# Disable records last access time for every file
+echo ":: OSX SSD: DISALING LAST ACCESS TIME FOR ALL FILES ::"
+echo '<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>Label</key>
+    <string>com.nullvision.noatime</string>
+    <key>ProgramArguments</key>
+    <array>
+      <string>mount</string>
+      <string>-vuwo</string>
+      <string>noatime</string>
+      <string>/</string>
+    </array>
+    <key>RunAtLoad</key>
+    <true/>
+  </dict>
+</plist>' | sudo tee /Library/LaunchDaemons/com.nullvision.noatime.plist
+sudo chown root:wheel /Library/LaunchDaemons/com.nullvision.noatime.plist
+
+# Delay (180 minutes) hard drive sleep [no HDD only]
+echo ":: OSX SSD: UPDATING SLEEP TIMES ::"
+sudo pmset -b disksleep 180  # Battery
+sudo pmset -c disksleep 180  # Power adapter
 
 ###############################################################################
 # Do some clean up work.
