@@ -74,5 +74,8 @@ alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && k
 # (useful when executing time-consuming commands)
 alias badge="tput bel"
 
+# Enable thefuck
+eval "$(thefuck --alias)"
+
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced

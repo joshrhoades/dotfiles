@@ -29,6 +29,7 @@ apps=(
 	coreutils
 	dnsmasq
 	findutils
+	geoip
 	git
 	git-extras
 	gnu-sed --with-default-names
@@ -37,6 +38,7 @@ apps=(
 	homebrew/completions/brew-cask-completion
 	homebrew/dupes/grep
 	homebrew/dupes/openssh
+	htop
 	hub
 	markdown
 	mongodb
@@ -45,6 +47,8 @@ apps=(
 	ponysay
 	python
 	source-highlight
+	speedtest_cli
+	thefuck
 	wget
 	wifi-password
 	zsh

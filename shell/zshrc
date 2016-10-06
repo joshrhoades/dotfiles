@@ -146,6 +146,9 @@ POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(custom_wifi_signal battery ip time)
 alias reloadProfile='. ~/.zshrc'
 alias editProfile='open -e ~/.zshrc'
 
+# thefuck
+eval "$(thefuck --alias)"
+
 # GIT: turn CRLF off for some repos that use windows lines
 alias gitCRLFOff='git config --global core.autocrlf false'
 
