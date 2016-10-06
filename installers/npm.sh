@@ -15,7 +15,7 @@
 echo ":: NPM: SETUP ::"
 if test ! $(which nvm)
 then
-  echo ":: NPM: NOT INSTALLED - INSTALLING LATEST STABLE VERSION OF NODE ::"
+  echo ":: NPM: NOT INSTALLED: INSTALLING LATEST STABLE VERSION OF NODE ::"
 
   # Install the latest stable version of node
   nvm install stable
@@ -25,7 +25,6 @@ then
 
   # Use the stable version of node by default
   nvm alias default node
-  echo ":: NPM: INSTALL COMPLETE ::"
 fi
 
 # All `npm install <pkg>` commands will pin to the version that was available at the time you run the command
@@ -56,6 +55,5 @@ packages=(
 )
 echo ":: NPM: INSTALLING PACKAGES ::"
 npm install -g "${packages[@]}"
-echo ":: NPM: PACKAGES INSTALLED ::"
 
-echo ":: NPM: SETUP COMPLETE ::"
+echo ":: NPM: COMPLETE ::"
