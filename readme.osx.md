@@ -115,7 +115,7 @@ The following tweaks are made to OSX with this configuration.
 - Desktop and other icon views have grid-spacing of 100
 - Desktop and other icon views size to 80
 
-## DOCK
+## Dock
 - Changed to dark mode
 - Highlight hover effect enabled
 - Set to Scale for min/max effect
