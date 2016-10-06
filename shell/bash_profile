@@ -1,0 +1,78 @@
+export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/local/bin
+
+# Set Default Editor (change 'Nano' to the editor of your choice)
+export EDITOR=/usr/bin/nano
+
+# Make Terminal Better
+alias cp='cp -iv'                           # Preferred 'cp' implementation
+alias mv='mv -iv'                           # Preferred 'mv' implementation
+alias mkdir='mkdir -pv'                     # Preferred 'mkdir' implementation
+alias ll='ls -FGlAhp'                       # Preferred 'ls' implementation
+alias less='less -FSRXc'                    # Preferred 'less' implementation
+cd() { builtin cd "$@"; ls; }               # Always list directory contents upon 'cd'
+alias cd..='cd ../'                         # Go back 1 directory level (for fast typers)
+alias ..='cd ../'                           # Go back 1 directory level
+alias ...='cd ../../'                       # Go back 2 directory levels
+alias .3='cd ../../../'                     # Go back 3 directory levels
+alias .4='cd ../../../../'                  # Go back 4 directory levels
+alias .5='cd ../../../../../'               # Go back 5 directory levels
+alias .6='cd ../../../../../../'            # Go back 6 directory levels
+alias f='open -a Finder ./'                 # f:            Opens current directory in MacOS Finder
+alias ~="cd ~"                              # ~:            Go Home
+alias c='clear'                             # c:            Clear terminal display
+alias which='type -all'                     # which:        Find executables
+alias path='echo -e ${PATH//:/\\n}'         # path:         Echo all executable Paths
+alias show_options='shopt'                  # Show_options: display bash options settings
+alias fix_stty='stty sane'                  # fix_stty:     Restore terminal settings when screwed up
+alias cic='set completion-ignore-case On'   # cic:          Make tab-completion case-insensitive
+mcd () { mkdir -p "$1" && cd "$1"; }        # mcd:          Makes new Dir and jumps inside
+trash () { command mv "$@" ~/.Trash ; }     # trash:        Moves a file to the MacOS trash
+ql () { qlmanage -p "$*" >& /dev/null; }    # ql:           Opens any file in MacOS Quicklook Preview
+alias DT='tee ~/Desktop/terminalOut.txt'    # DT:           Pipe content to file on MacOS Desktop
+
+# GRC Bash Coloring (Brew)
+# source "`brew --prefix`/etc/grc.bashrc"
+
+# Command Tab-Completion (Brew)
+source `brew --prefix`/Library/Contributions/brew_bash_completion.sh
+
+# Quick alias to edit the bash_profile
+alias editprofile='open -e ~/.bash_profile'
+
+# Quick alias to reload the bash profile, no matter what dir you are in
+alias reloadprofile=". ~/.bash_profile"
+
+export PS1="\[\033[1;36m\]\u@\h\[\033[33m\](\w) \$\[\033[0m\] "
+
+# Force all listings to display in detail view
+alias ls="ls -CF"
+
+# Force RM to be in interactive mode, to confirm deletes
+alias rm="rm -i"
+
+# Avoid creating .DS_Store files on network volumes
+defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+
+# Show the ~/Library folder
+chflags nohidden ~/Library
+
+# Clean up LaunchServices to remove duplicates in the “Open With” menu
+alias lscleanup="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user && killall Finder"
+
+# Recursively delete `.DS_Store` files
+alias cleanup="find . -type f -name '*.DS_Store' -ls -delete"
+
+# Empty the Trash on all mounted volumes and the main HDD
+# Also, clear Apple’s System Logs to improve shell startup speed
+alias emptytrash="sudo rm -rfv /Volumes/*/.Trashes; sudo rm -rfv ~/.Trash; sudo rm -rfv /private/var/log/asl/*.asl"
+
+# Hide/show all desktop icons (useful when presenting)
+alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
+alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
+
+# Ring the terminal bell, and put a badge on Terminal.app’s Dock icon
+# (useful when executing time-consuming commands)
+alias badge="tput bel"
+
+export CLICOLOR=1
+export LSCOLORS=GxFxCxDxBxegedabagaced

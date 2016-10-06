@@ -1,0 +1,36 @@
+#!/bin/bash
+
+# @link https://github.com/nicksp/dotfiles/blob/master/bin/git-delete-merged-branches
+# ANSI escape sequence characters, @link http://ascii-table.com/ansi-escape-sequences-vt-100.php
+bold="\033[1m"
+reset="\033[0m"
+yellow="\033[38;5;11m"
+
+branches_to_die=$(git branch --no-color --merged origin/master | grep -v '\smaster$')
+echo ":: LOCAL ${bold}${yellow}BRANCHES${reset} TO BE DELETED ⤵ ::"
+echo "● ${bold}${yellow}${branches_to_die}${reset}"
+
+kill_branches () {
+  echo $branches_to_die | xargs -n 1 git branch -d
+}
+
+remote_branches_to_die=$(git branch --no-color --remote --merged origin/master | grep -v '\smaster$' | grep -v '\/master$' | grep -v "origin\/HEAD" | grep -v "origin\/master")
+echo ":: REMOTE BRANCHES TO BE DELETED ⤵ ::"
+echo "● ${bold}${yellow}${remote_branches_to_die}${reset}"
+
+kill_remote_branches () {
+  # Remove remote branches
+  for remote in $remote_branches_to_die
+  do
+    # branches=`echo "$remote_branches" | grep "$remote/" | sed 's/\(.*\)\/\(.*\)/:\2 /g' | tr -d '\n'`
+    git branch -rd "$remote"
+  done
+}
+
+echo -e "\n:: ENTER ${bold}${yellow}Y${reset} TO CONFIRM ::"
+read -p "> " confirm
+
+[[ $confirm == "Y" ]] && kill_branches && kill_remote_branches
+
+echo -e "\n:: PRUNING ALL REMOTES ::"
+git remote | xargs -n 1 git remote prune

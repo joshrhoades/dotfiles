@@ -1,0 +1,6 @@
+# /node_modules/* and /bower_components/* ignored by default
+
+build/*
+# Example: Ignore everything in build, but include a specific file in build, uncomment next line
+#!build/index.js
+package.json

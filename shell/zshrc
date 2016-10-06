@@ -1,0 +1,201 @@
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
+
+# Path to your oh-my-zsh installation.
+export ZSH=/Users/joshua.rhoades/.oh-my-zsh
+
+# Set DEFAULT_USER in ~/.zshrc to your regular username to hide “user@hostname” when logged in as yourself on the machine
+export DEFAULT_USER=``
+
+# Set name of the theme to load. Optionally, if you set this to "random"
+# it'll load a random theme each time that oh-my-zsh is loaded.
+# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+#ZSH_THEME="materialshell-dark"
+ZSH_THEME="powerlevel9k/powerlevel9k"
+
+# Uncomment the following line to use case-sensitive completion.
+# CASE_SENSITIVE="true"
+
+# Uncomment the following line to use hyphen-insensitive completion. Case
+# sensitive completion must be off. _ and - will be interchangeable.
+# HYPHEN_INSENSITIVE="true"
+
+# Uncomment the following line to disable bi-weekly auto-update checks.
+# DISABLE_AUTO_UPDATE="true"
+
+# Uncomment the following line to change how often to auto-update (in days).
+# export UPDATE_ZSH_DAYS=13
+
+# Uncomment the following line to disable colors in ls.
+# DISABLE_LS_COLORS="true"
+
+# Uncomment the following line to disable auto-setting terminal title.
+# DISABLE_AUTO_TITLE="true"
+
+# Comment out the following line to disable command auto-correction.
+ENABLE_CORRECTION="true"
+
+# Comment out the following line to hide red dots whilst waiting for completion.
+COMPLETION_WAITING_DOTS="true"
+
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+HIST_STAMPS="yyyy-mm-dd"
+
+# Would you like to use another custom folder than $ZSH/custom?
+# ZSH_CUSTOM=/path/to/new-custom-folder
+
+# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(git git-prune npm node textmate sublime)
+
+# User configuration
+
+wifiStrength() {
+	local signalRaw=$(/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I | grep CtlRSSI | sed -e 's/^.*: //')
+	local signal=0;
+	local color='';
+	if [[ $signalRaw -le -100 ]]; then
+		signal=0;
+	elif [[ $signalRaw -ge -50 ]]; then
+		signal=100;
+	else
+		signal=$(2 * ($signalRaw + 100))
+	fi
+	if [[ $signal -ge 75 ]]; then
+		color='%F{green}'
+	elif [[ $signal -le 50 ]]; then
+		color='%F{red}'
+	else
+		color='%F{green}'
+	fi
+	echo -n "$signal%% %{$color%}\uf1eb%{%f%}"
+}
+
+POWERLEVEL9K_MODE="awesome-fontconfig"
+POWERLEVEL9K_STATUS_VERBOSE=false
+POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
+POWERLEVEL9K_SHORTEN_STRATEGY="truncate_with_package_name"
+POWERLEVEL9K_VCS_CLEAN_BACKGROUND="black"
+POWERLEVEL9K_VCS_CLEAN_FOREGROUND="white"
+POWERLEVEL9K_VCS_MODIFIED_BACKGROUND="magenta"
+POWERLEVEL9K_VCS_UNTRACKED_BACKGROUND="magenta"
+POWERLEVEL9K_VCS_MODIFIED_FOREGROUND="white"
+POWERLEVEL9K_VCS_UNTRACKED_FOREGROUND="white"
+POWERLEVEL9K_SHOW_CHANGESET=true
+POWERLEVEL9K_FAIL_ICON=$'\U2718'
+POWERLEVEL9K_STATUS_ERROR_FOREGROUND="white"
+POWERLEVEL9K_STATUS_ERROR_BACKGROUND="red"
+POWERLEVEL9K_TIME_BACKGROUND="black"
+POWERLEVEL9K_TIME_FOREGROUND="text"
+POWERLEVEL9K_RAM_ELEMENTS=(ram_free)
+POWERLEVEL9K_IP_BACKGROUND="233"
+POWERLEVEL9K_IP_FOREGROUND="text"
+POWERLEVEL9K_CUSTOM_WIFI_SIGNAL="wifiStrength"
+POWERLEVEL9K_CUSTOM_WIFI_SIGNAL_BACKGROUND="233"
+POWERLEVEL9K_CUSTOM_WIFI_SIGNAL_FOREGROUND="text"
+POWERLEVEL9K_TIME_FORMAT="%D{%H:%M:%S} \uf017"
+POWERLEVEL9K_BATTERY_FOREGROUND="text"
+POWERLEVEL9K_BATTERY_CHARGING='yellow'
+POWERLEVEL9K_BATTERY_CHARGED='green'
+POWERLEVEL9K_BATTERY_DISCONNECTED='$DEFAULT_COLOR'
+POWERLEVEL9K_BATTERY_LOW_THRESHOLD='10'
+POWERLEVEL9K_BATTERY_LOW_COLOR='red'
+POWERLEVEL9K_BATTERY_VERBOSE=true
+POWERLEVEL9K_BATTERY_ICON=$'\UF1E6'
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(status os_icon root_indicator dir vcs)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(custom_wifi_signal battery ip time)
+#POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(ip time)
+
+# export MANPATH="/usr/local/man:$MANPATH"
+
+# You may need to manually set your language environment
+# export LANG=en_US.UTF-8
+
+# Preferred editor for local and remote sessions
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='mvim'
+# fi
+
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
+
+# ssh
+# export SSH_KEY_PATH="~/.ssh/dsa_id"
+
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+#
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# profile controls
+alias reloadProfile='. ~/.zshrc'
+alias editProfile='open -e ~/.zshrc'
+
+# GIT: turn CRLF off for some repos that use windows lines
+alias gitCRLFOff='git config --global core.autocrlf false'
+
+# GIT: turn CRLF back on for all the good little repos
+alias gitCRLFOn='git config --global core.autocrlf true'
+
+# GIT: Check to see what CRLF state git is in
+alias gitCRLFState='git config --global core.autocrlf'
+
+# stop accidentally doing a ping of death
+alias ping='ping -c 5'
+
+# setup simple web server from current location
+alias servethis="python -c 'import SimpleHTTPServer; SimpleHTTPServer.test()'"
+
+# Show list commands as desired
+ls () {
+    command ls -CFGAhp $@
+}
+
+# Make any CD operation list files after completing
+function chpwd() {
+  ls
+}
+
+# Make destructive commands safer
+alias rm='rm -i'
+
+# Turn hidden files on or off
+function hiddenOn() { defaults write com.apple.Finder AppleShowAllFiles YES ; }
+function hiddenOff() { defaults write com.apple.Finder AppleShowAllFiles NO ; }
+
+# nice mount (http://catonmat.net/blog/another-ten-one-liners-from-commandlingfu-explained)
+# displays mounted drive information in a nicely formatted manner
+function nicemount() { (echo "DEVICE PATH TYPE FLAGS" && mount | awk '$2="";1') | column -t ; }
+
+# view man pages in Preview
+function pman() { ps=`mktemp -t manpageXXXX`.ps ; man -t $@ > "$ps" ; open "$ps" ; }
+
+#Apache
+alias webStart='sudo apachectl start'
+alias webStop='sudo apachectl stop'
+alias webBounce='sudo apachectl restart'
+
+source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# Source local extra (private) settings specific to machine if it exists
+[ -f ~/.zsh.local ] && source ~/.zsh.local
+
+# wrap all output with syntax highlighting for invalid commands
+# THIS MUST BE THE LAST COMMAND IN PROFILE SINCE IT WRAPS ALL OTHERS
+source $ZSH/oh-my-zsh.sh
