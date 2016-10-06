@@ -224,15 +224,9 @@ main() {
   ln -fs $HOME/dotfiles/bin $HOME
 
   declare -a BINARIES=(
-    'batcharge.py'
     'crlf'
-    'dups'
     'git-delete-merged-branches'
-    'nyan'
-    'passive'
-    'proofread'
     'ssh-key'
-    'weasel'
   )
 
   for i in ${BINARIES[@]}; do
