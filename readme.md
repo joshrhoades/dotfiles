@@ -1,6 +1,13 @@
 # dotfiles for Josh Rhoades
 This is my collection of dotfiles for use across my OSX machines. This should be cloned to the Home directory (`~/`), resulting in a path of `~/dotfiles`.
 
+## Pre-Installation
+
+### Install xCode CLI Tools
+```sh
+$ xcode-select --install
+```
+
 ## Installation
 ```sh
 $ git clone https://github.com/joshrhoades/dotfiles.git ~/dotfiles
