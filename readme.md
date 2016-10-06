@@ -20,7 +20,7 @@ Total Terminal can work just fine, however, by simply enabling SIP without debug
 csrutil enable --without debug
 ```
 
-Then restart as normal. Total Terminal will no work with SIP pretty much still intact. Up to you.
+Then restart as normal. Total Terminal will now work with SIP pretty much still intact. Up to you.
 
 More detailed [SIP instructions](http://totalterminal.binaryage.com/#sip).
 
@@ -56,6 +56,7 @@ Good resources for using dotfiles for yourself:
 - [Mathias’s dotfiles](https://github.com/mathiasbynens/dotfiles)
 - [Paul's dotfiles](https://github.com/paulirish/dotfiles)
 - [Nick P's dotfiles](https://github.com/nicksp/dotfiles)
+- [nicknisi's dotfiles](https://github.com/nicknisi/dotfiles)
 
 ## License
 
