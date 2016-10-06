@@ -11,7 +11,6 @@ if test ! $(which brew)
 then
   echo ":: BREW: INSTALLING ::"
   ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-  echo ":: BREW: INSTALLED ::"
 fi
 
 brew tap homebrew/versions
@@ -20,12 +19,10 @@ brew tap homebrew/dupes
 # Make sure we’re using the latest Homebrew
 echo ":: BREW: UPDATING ::"
 brew update
-echo ":: BREW: UPDATED ::"
 
 # Upgrade any already-installed formulae
 echo ":: BREW: UPDATING CURRENTLY INSTALLED FORMULAE ::"
 brew upgrade --all
-echo ":: BREW: CURRENTLY INSTALLED FORMULAE UPDATED ::"
 
 apps=(
 	bash-completion2
@@ -56,11 +53,9 @@ apps=(
 )
 echo ":: BREW: INSTALLING NEW FORMULAE ::"
 brew install "${apps[@]}"
-echo ":: BREW: NEW FORMULAE INSTALLED ::"
 
 # Remove outdated versions from the cellar
 echo ":: BREW: CLEANING UP ::"
 brew cleanup
-echo ":: BREW: CLEAN ::"
 
-echo ":: BREW: SETUP COMPLETE ::"
+echo ":: BREW: COMPLETE ::"
