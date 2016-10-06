@@ -57,63 +57,176 @@ HIST_STAMPS="yyyy-mm-dd"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git git-prune npm node textmate sublime)
 
-# User configuration
+# thefuck: enable it
+eval "$(thefuck --alias)"
 
+# iTunes control function
+function itunes() {
+	local opt=$1
+	shift
+	case "$opt" in
+		launch|play|pause|stop|rewind|resume|quit)
+			;;
+		mute)
+			opt="set mute to true"
+			;;
+		unmute)
+			opt="set mute to false"
+			;;
+		next|previous)
+			opt="$opt track"
+			;;
+		vol)
+			opt="set sound volume to $1" #$1 Due to the shift
+			;;
+		playing|status)
+			local state=`osascript -e 'tell application "iTunes" to player state as string'`
+			if [[ "$state" = "playing" ]]; then
+				currenttrack=`osascript -e 'tell application "iTunes" to name of current track as string'`
+				currentartist=`osascript -e 'tell application "iTunes" to artist of current track as string'`
+				echo -E "♫ $fg[yellow]$currenttrack$reset_color by $fg[yellow]$currentartist$reset_color";
+			else
+				echo "iTunes is" $state;
+			fi
+			return 0
+			;;
+		shuf|shuff|shuffle)
+			# The shuffle property of current playlist can't be changed in iTunes 12,
+			# so this workaround uses AppleScript to simulate user input instead.
+			# Defaults to toggling when no options are given.
+			# The toggle option depends on the shuffle button being visible in the Now playing area.
+			# On and off use the menu bar items.
+			local state=$1
+
+			if [[ -n "$state" && ! "$state" =~ "^(on|off|toggle)$" ]]
+			then
+				print "Usage: itunes shuffle [on|off|toggle]. Invalid option."
+				return 1
+			fi
+
+			case "$state" in
+				on|off)
+					# Inspired by: http://stackoverflow.com/a/14675583
+					osascript 1>/dev/null 2>&1 <<-EOF
+					tell application "System Events" to perform action "AXPress" of (menu item "${state}" of menu "Shuffle" of menu item "Shuffle" of menu "Controls" of menu bar item "Controls" of menu bar 1 of application process "iTunes" )
+EOF
+					return 0
+					;;
+				toggle|*)
+					osascript 1>/dev/null 2>&1 <<-EOF
+					tell application "System Events" to perform action "AXPress" of (button 2 of process "iTunes"'s window "iTunes"'s scroll area 1)
+EOF
+					return 0
+					;;
+			esac
+			;;
+		""|-h|--help)
+			echo "Usage: itunes <option>"
+			echo "option:"
+			echo "\tlaunch|play|pause|stop|rewind|resume|quit"
+			echo "\tmute|unmute\tcontrol volume set"
+			echo "\tnext|previous\tplay next or previous track"
+			echo "\tshuf|shuffle [on|off|toggle]\tSet shuffled playback. Default: toggle. Note: toggle doesn't support the MiniPlayer."
+			echo "\tvol\tSet the volume, takes an argument from 0 to 100"
+			echo "\tplaying|status\tShow what song is currently playing in iTunes."
+			echo "\thelp\tshow this message and exit"
+			return 0
+			;;
+		*)
+			print "Unknown option: $opt"
+			return 1
+			;;
+	esac
+	osascript -e "tell application \"iTunes\" to $opt"
+}
+
+# User configuration
+# OS X Sierra version: https://github.com/bhilburn/powerlevel9k/issues/317
 wifiStrength() {
+	#setopt xtrace verbose
+	local output="$(/System/Library/PrivateFrameworks/Apple80211.framework/Versions/A/Resources/airport -I)"
+	local airport="$(echo $output | grep AirPort | awk -F': ' '{print $2}')"
+	local result=""
+	if [ "$airport" = "Off" ]; then
+				local color="%F{red}"
+				echo -n "%{$color%}Wifi Off%{%f%}"
+		else
+		local ssid="$(echo $output | grep -v 'BSSID' | grep 'SSID' | awk -F': ' '{print $2}')"
+		local speed="$(echo $output | grep lastTxRate | awk -F': ' '{print $2}')"
+		local color="%F{green}"
+		[[ $speed -gt 100 ]] && color="%F{blue}"
+		[[ $speed -lt 50 ]] && color="%F{red}"
+
+		echo "\uf1eb  ${color}${ssid} @ ${speed}Mbs%{%f%}"
+	fi
+	#unsetopt xtrace
+}
+oldwifiStrength() {
 	local signalRaw=$(/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I | grep CtlRSSI | sed -e 's/^.*: //')
 	local signal=0;
-	local color='';
+	local color="";
 	if [[ $signalRaw -le -100 ]]; then
 		signal=0;
 	elif [[ $signalRaw -ge -50 ]]; then
 		signal=100;
 	else
-		signal=$(2 * ($signalRaw + 100))
+		signal=$((2 * (${signalRaw} + 100)))
 	fi
 	if [[ $signal -ge 75 ]]; then
 		color='%F{green}'
 	elif [[ $signal -le 50 ]]; then
 		color='%F{red}'
 	else
-		color='%F{green}'
+		color='%F{yellow}'
 	fi
-	echo -n "$signal%% %{$color%}\uf1eb%{%f%}"
+	echo -n "$signal%% %{$color%}\uf1eb%{%f%} "
 }
-
 POWERLEVEL9K_MODE="awesome-fontconfig"
 POWERLEVEL9K_STATUS_VERBOSE=false
 POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
 POWERLEVEL9K_SHORTEN_STRATEGY="truncate_with_package_name"
+#wifi
+POWERLEVEL9K_CUSTOM_WIFI_SIGNAL="wifiStrength"
+POWERLEVEL9K_CUSTOM_WIFI_SIGNAL_BACKGROUND="black"
+POWERLEVEL9K_CUSTOM_WIFI_SIGNAL_FOREGROUND="white"
+#dvcs
 POWERLEVEL9K_VCS_CLEAN_BACKGROUND="black"
 POWERLEVEL9K_VCS_CLEAN_FOREGROUND="white"
 POWERLEVEL9K_VCS_MODIFIED_BACKGROUND="magenta"
-POWERLEVEL9K_VCS_UNTRACKED_BACKGROUND="magenta"
+POWERLEVEL9K_VCS_UNTRACKED_BACKGROUND="red"
 POWERLEVEL9K_VCS_MODIFIED_FOREGROUND="white"
 POWERLEVEL9K_VCS_UNTRACKED_FOREGROUND="white"
 POWERLEVEL9K_SHOW_CHANGESET=true
+#failed command
 POWERLEVEL9K_FAIL_ICON=$'\U2718'
 POWERLEVEL9K_STATUS_ERROR_FOREGROUND="white"
 POWERLEVEL9K_STATUS_ERROR_BACKGROUND="red"
-POWERLEVEL9K_TIME_BACKGROUND="black"
-POWERLEVEL9K_TIME_FOREGROUND="text"
-POWERLEVEL9K_RAM_ELEMENTS=(ram_free)
-POWERLEVEL9K_IP_BACKGROUND="233"
+#time
+POWERLEVEL9K_TIME_BACKGROUND="blue"
+POWERLEVEL9K_TIME_FOREGROUND="black"
+POWERLEVEL9K_TIME_FORMAT="%D{%H:%M:%S \uf017 %a %b %d \uf073}"
+#ip address
+POWERLEVEL9K_IP_BACKGROUND="black"
 POWERLEVEL9K_IP_FOREGROUND="text"
-POWERLEVEL9K_CUSTOM_WIFI_SIGNAL="wifiStrength"
-POWERLEVEL9K_CUSTOM_WIFI_SIGNAL_BACKGROUND="233"
-POWERLEVEL9K_CUSTOM_WIFI_SIGNAL_FOREGROUND="text"
-POWERLEVEL9K_TIME_FORMAT="%D{%H:%M:%S} \uf017"
-POWERLEVEL9K_BATTERY_FOREGROUND="text"
-POWERLEVEL9K_BATTERY_CHARGING='yellow'
-POWERLEVEL9K_BATTERY_CHARGED='green'
-POWERLEVEL9K_BATTERY_DISCONNECTED='$DEFAULT_COLOR'
-POWERLEVEL9K_BATTERY_LOW_THRESHOLD='10'
-POWERLEVEL9K_BATTERY_LOW_COLOR='red'
+#power
 POWERLEVEL9K_BATTERY_VERBOSE=true
+POWERLEVEL9K_BATTERY_LOW_THRESHOLD="10"
+POWERLEVEL9K_BATTERY_CHARGED_BACKGROUND="green"
+POWERLEVEL9K_BATTERY_CHARGED_FOREGROUND="black"
+POWERLEVEL9K_BATTERY_CHARGED_VISUAL_IDENTIFIER_COLOR="black"
+POWERLEVEL9K_BATTERY_LOW_BACKGROUND="red"
+POWERLEVEL9K_BATTERY_LOW_FOREGROUND="white"
+POWERLEVEL9K_BATTERY_LOW_VISUAL_IDENTIFIER_COLOR="black"
+POWERLEVEL9K_BATTERY_CHARGING_BACKGROUND="blue"
+POWERLEVEL9K_BATTERY_CHARGING_FOREGROUND="black"
+POWERLEVEL9K_BATTERY_CHARGING_VISUAL_IDENTIFIER_COLOR="black"
+POWERLEVEL9K_BATTERY_DISCONNECTED_BACKGROUND="yellow"
+POWERLEVEL9K_BATTERY_DISCONNECTED_FOREGROUND="black"
+POWERLEVEL9K_BATTERY_DISCONNECTED_VISUAL_IDENTIFIER_COLOR="black"
 POWERLEVEL9K_BATTERY_ICON=$'\UF1E6'
+#set prompts
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(status os_icon root_indicator dir vcs)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(custom_wifi_signal battery ip time)
-#POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(ip time)
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -144,10 +257,7 @@ POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(custom_wifi_signal battery ip time)
 
 # profile controls
 alias reloadProfile='. ~/.zshrc'
-alias editProfile='open -e ~/.zshrc'
-
-# thefuck
-eval "$(thefuck --alias)"
+alias editProfile='st ~/.zshrc'
 
 # GIT: turn CRLF off for some repos that use windows lines
 alias gitCRLFOff='git config --global core.autocrlf false'
@@ -166,7 +276,7 @@ alias servethis="python -c 'import SimpleHTTPServer; SimpleHTTPServer.test()'"
 
 # Show list commands as desired
 ls () {
-    command ls -CFGAhp $@
+	command ls -CFGAhp $@
 }
 
 # Make any CD operation list files after completing
