@@ -10,7 +10,19 @@ $ chmod +x setup.sh
 
 Do not execute the `setup.sh` script yet, there are some basic things that need to be done that cannot be (or in some cases, are not yet) scripted:
 
-## Total Terminal
+### Total Terminal
+[Total Terminal](http://totalterminal.binaryage.com/) is an absolutely fantastic terminal tweak that allows Visor-like (quake-style) slide-down of terminal with a global shortcut (I use ``⌘ + ` ``), on the currently active screen.
+
+Unfortunately, with the introduction of SIP by ~~douchebags at Apple~~ _#AppleBags_, it killed off the usage of this for many people who did not want to risk tweaking SIP, and so the guys at Binary Age sunsetted support. But it is still awesome, still works on latest OSX, and there is still no viable replacement (iTerm 2 can fake its way into almost doing this, but it is pretty janky and iTerm 2 can suck it regardless).
+
+Total Terminal can work just fine, however, by simply enabling SIP without debug, but this requires booting into Recovery Mode (Restart → hold `⌘ + R` until the Apple logo appears → open Terminal from Utilities in the menubar)
+```
+csrutil enable --without debug
+```
+
+Then restart as normal. Total Terminal will no work with SIP pretty much still intact. Up to you.
+
+More detailed [SIP instructions](http://totalterminal.binaryage.com/#sip).
 
 ### Font Installation
 Various custom fonts are used in this dotfiles, and not all of them can be reliably installed via CLI/bash due to Font Book issues. These will need to be manually installed.
