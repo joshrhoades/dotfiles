@@ -20,7 +20,7 @@ The following tweaks are made to OSX with this configuration.
 ## Menubar
 - Transparency disabled
 - Dark Mode enabled
-- Time Machine, Volume, and User Icons are hidden
+- Time Machine, and User Icons are hidden (I don't hide the Volume anymore, I actually find it useful when I don't have headphones on to at a glance see if my speakers are on)
 - BT, AirPort, Battery, and Clock are unhidden
 - Battery
     + Set to not show percentage
