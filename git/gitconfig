@@ -66,7 +66,15 @@ retag = "!f() { \
 }; f"
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+[alias]
+	# GIT: turn CRLF off for some repos that use windows lines
+	crlfOff = 'git config --global core.autocrlf false'
 
+	# GIT: turn CRLF back on for all the good little repos
+	crlfOn = 'git config --global core.autocrlf true'
+
+	# GIT: Check to see what CRLF state git is in
+	crlfState = 'git config --global core.autocrlf'
 # So much color
 [color]
     ui = always
