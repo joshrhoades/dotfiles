@@ -85,7 +85,7 @@ The following tweaks are made to OSX with this configuration.
 
 ## Finder
 - `~/Library` shown by default
-- `/Volumnes` shown by default
+- `/Volumes` shown by default
 - MBA SuperDrive support enabled
 - File Info default expanded for "General", "Open With", and "Sharing & Permissions"
 - Finder can be quit by `⌘ + Q`
