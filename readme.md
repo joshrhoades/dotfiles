@@ -1,6 +1,10 @@
 # dotfiles for Josh Rhoades
 This is my collection of dotfiles for use across my OSX machines. This should be cloned to the Home directory (`~/`), resulting in a path of `~/dotfiles`.
 
+All required applications are installed via `brew cask`, exceptions noted below. Virtually everything else is related to CLI (bash or zsh).
+
+If any others beyond myself wish to leverage this particular dotfiles, then be aware I can make no claim or guarantee as to the support, frequency of updates, or responsiveness related to any issues one may encounter. This repository exists in and of itself for my own personal use, and as such there is no sense of a support structure around it. With that being said, however, if any others out there were to find something of use in this regardless, then all the better.
+
 ## Settings
 - [OSX Settings](readme.osx.md)
 - ZSH Settings
@@ -11,25 +15,14 @@ This is my collection of dotfiles for use across my OSX machines. This should be
 - [ ] Add readme for zsh setup
 - [ ] Add Sublime Text 3 to dotfiles
 - [ ] Add Alfred 3 to dotfiles
-- [ ] Consider using brew to install st3, and more
+- [x] Consider using brew to install st3, and more
 - [ ] Consider using fancy diff in CLI instead of BC3
 - [ ] setup .local files for (machine||environment)-specific settings outside of the dotfiles
-- [ ] Migrate from my beloved [Caffeine](http://lightheadsw.com/caffeine/) to Amphetamine (App Store)
-- [ ] Migrate to CLI HOSTs editing, or keep using [Gas Mask](https://github.com/2ndalpha/gasmask)?
+- [x] Migrate from my beloved [Caffeine](http://lightheadsw.com/caffeine/) to Amphetamine (App Store)
+- [x] Migrate to CLI HOSTs editing, or keep using [Gas Mask](https://github.com/2ndalpha/gasmask)?
 - [ ] Migrate from iStat Nano to CLI (partially solved with [htop](https://github.com/hishamhm/htop))
 
-## Pre-Installation
-Some things cannot be entirely scripted, though that is the ideal. Until then, do this:
-- Install XCode
-- Install [ST3](https://www.sublimetext.com/3)
-- Install [Alfred](https://www.alfredapp.com/)
-- Install [cloudApp](https://www.getcloudapp.com/)
-- Install [Beyond Compare 3](http://www.scootersoftware.com/)
-- Install [Moom](https://manytricks.com/moom/)
-- Install [Total Terminal](http://totalterminal.binaryage.com/)
-- Install Fonts: Operator Mono and Input Mono (see __Font Installation__) below.
-
-### Install XCode CLI Tools
+## Pre-Installation: Install XCode CLI Tools
 ```sh
 $ xcode-select --install
 ```
