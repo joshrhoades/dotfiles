@@ -45,6 +45,7 @@ apps=(
 	the-unarchiver
 	totalterminal
 	tower
+	transmission
 	transmit
 	virtualbox
 )
