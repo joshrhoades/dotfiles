@@ -8,7 +8,9 @@ brew install brew-cask
 brew tap caskroom/versions
 
 # Install packages
+# Install apptrap first so we can cleanly remove anything that is added afterwards
 apps=(
+	apptrap
 	1password
 	aerial
 	alfred
