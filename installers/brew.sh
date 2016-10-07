@@ -28,6 +28,7 @@ apps=(
 	bash-completion2
 	coreutils
 	dnsmasq
+	ffmpeg --with-libvpx
 	findutils
 	geoip
 	git
