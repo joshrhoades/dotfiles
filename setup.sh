@@ -2,7 +2,7 @@
 
 # https://github.com/kaicataldo/dotfiles/blob/master/bin/install.sh
 
-# This symlinks all the dotfiles (and .atom/) to ~/
+# This symlinks all the dotfiles  to ~/
 # It also symlinks ~/bin for easy updating
 
 # This is safe to run multiple times and will prompt you about anything unclear
@@ -125,11 +125,11 @@ print_success() {
 
 # Warn user this script will overwrite current dotfiles
 while true; do
-  read -p "Warning: this will overwrite your current dotfiles. Continue? [y/n] " yn
+  read -p ":: WARNING: THIS WILL OVERWRITE EXISTING DOTFILES. PROCEED? [y/n] :: " yn
   case $yn in
     [Yy]* ) break;;
     [Nn]* ) exit;;
-    * ) echo "Please answer yes or no.";;
+    * ) echo ":: ANSWER YES OR NO ::";;
   esac
 done
 
@@ -147,14 +147,14 @@ export DOTFILES_DIR
 DOTFILES_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 # Create dotfiles_old in homedir
-echo -n "Creating $dir_backup for backup of any existing dotfiles in ~..."
+echo -n ":: CREATING $dir_backup BACKUP DIRECTORY TO HOUSE EXISTING DOTFILES IN ~... ::"
 mkdir -p $dir_backup
-echo "done"
+echo ":: BACKUP DIRECTORY READY ::"
 
 # Change to the dotfiles directory
-echo -n "Changing to the $dir directory..."
+echo -n ":: CHANGING TO $dir DIRECTORY ::"
 cd $dir
-echo "done"
+echo ":: CWD IS DOTFILES ::"
 
 #
 # Actual symlink stuff
@@ -182,7 +182,7 @@ declare -a FILES_TO_SYMLINK=(
 # Move any existing dotfiles in homedir to dotfiles_old directory, then create symlinks from the homedir to any files in the ~/dotfiles directory specified in $files
 
 for i in ${FILES_TO_SYMLINK[@]}; do
-  echo "Moving any existing dotfiles from ~ to $dir_backup"
+  echo ":: BACKING UP EXISTING DOTFILES OUT OF ~ TO $dir_backup ::"
   mv ~/.${i##*/} ~/dotfiles_old/
 done
 
@@ -207,7 +207,7 @@ main() {
     elif [ "$(readlink "$targetFile")" == "$sourceFile" ]; then
       print_success "$targetFile → $sourceFile"
     else
-      ask_for_confirmation "'$targetFile' already exists, do you want to overwrite it?"
+      ask_for_confirmation ":: WARNING: '$targetFile' ALREADY EXISTS. OVERWRITE? ::"
       if answer_is_yes; then
         rm -rf "$targetFile"
         execute "ln -fs $sourceFile $targetFile" "$targetFile → $sourceFile"
@@ -227,10 +227,11 @@ main() {
     'crlf'
     'git-delete-merged-branches'
     'ssh-key'
+    'wifi-signal-strength'
   )
 
   for i in ${BINARIES[@]}; do
-    echo "Changing access permissions for binary script :: ${i##*/}"
+    echo ":: UPDATING ACCESS PERMISSIONS FOR BINARY SCRIPT '${i##*/}' ::"
     chmod +rwx $HOME/bin/${i##*/}
   done
 
@@ -275,7 +276,7 @@ install_zsh () {
       fi
     # If the platform is OS X, tell the user to install zsh :)
     elif [[ $platform == 'Darwin' ]]; then
-      echo "We'll install zsh, then re-run this script!"
+      echo ":: ZSH TO BE INSTALLED, THEN THIS WILL RE-EXECUTE ::"
       brew install zsh
       exit
     fi
@@ -299,7 +300,7 @@ main
 ###############################################################################
 
 # Install Zsh tweaks
-ln -s ~/dotfiles/zsh/custom/themes/powerlevel9k.zsh-theme $HOME/.oh-my-zsh/custom/themes
+ln -s ~/dotfiles/oh-my-zsh/custom/themes/powerlevel9k.zsh-theme $HOME/.oh-my-zsh/custom/themes
 
 # Reload zsh settings
 source ~/.zshrc
