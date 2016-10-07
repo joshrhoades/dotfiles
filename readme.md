@@ -5,9 +5,31 @@ This is my collection of dotfiles for use across my OSX machines. This should be
 - [OSX Settings](readme.osx.md)
 - ZSH Settings
 
-## Pre-Installation
+## Todo
+- [ ] Document pre-install apps
+- [ ] Update wifi strength script for OSX vs OSX Sierra
+- [ ] Add readme for zsh setup
+- [ ] Add Sublime Text 3 to dotfiles
+- [ ] Add Alfred 3 to dotfiles
+- [ ] Consider using brew to install st3, and more
+- [ ] Consider using fancy diff in CLI instead of BC3
+- [ ] setup .local files for (machine||environment)-specific settings outside of the dotfiles
+- [ ] Migrate from my beloved [Caffeine](http://lightheadsw.com/caffeine/) to Amphetamine (App Store)
+- [ ] Migrate to CLI HOSTs editing, or keep using [Gas Mask](https://github.com/2ndalpha/gasmask)?
+- [ ] Migrate from iStat Nano to CLI (partially solved with [htop](https://github.com/hishamhm/htop))
 
-### Install xCode CLI Tools
+## Pre-Installation
+Some things cannot be entirely scripted, though that is the ideal. Until then, do this:
+- Install XCode
+- Install [ST3](https://www.sublimetext.com/3)
+- Install [Alfred](https://www.alfredapp.com/)
+- Install [cloudApp](https://www.getcloudapp.com/)
+- Install [Beyond Compare 3](http://www.scootersoftware.com/)
+- Install [Moom](https://manytricks.com/moom/)
+- Install [Total Terminal](http://totalterminal.binaryage.com/)
+- Install Fonts: Operator Mono and Input Mono (see __Font Installation__) below.
+
+### Install XCode CLI Tools
 ```sh
 $ xcode-select --install
 ```
