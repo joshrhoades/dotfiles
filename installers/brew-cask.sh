@@ -10,6 +10,7 @@ brew tap caskroom/versions
 # Install packages
 apps=(
 	1password
+	aerial
 	alfred
 	beyond-compare
 	charles
