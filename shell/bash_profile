@@ -1,7 +1,7 @@
 export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/local/bin
 
 # Set Default Editor (change 'Nano' to the editor of your choice)
-export EDITOR=/usr/bin/nano
+export EDITOR=/usr/bin/vim
 
 # Make Terminal Better
 alias cp='cp -iv'                           # Preferred 'cp' implementation
