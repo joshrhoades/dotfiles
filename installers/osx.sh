@@ -48,6 +48,8 @@ sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo Hos
 # Use AirDrop over every interface.
 defaults write com.apple.NetworkBrowser BrowseAllInterfaces 1
 
+# 24-Hour Time
+defaults write NSGlobalDomain AppleICUForce12HourTime -bool false
 
 # Disable the “Are you sure you want to open this application?” dialog
 defaults write com.apple.LaunchServices LSQuarantine -bool false
@@ -70,6 +72,13 @@ defaults write com.apple.QuickTimePlayerX MGPlayMovieOnOpen -bool true
 
 # Enable iTunes track notifications in the Dock
 defaults write com.apple.dock itunes-notifications -bool true
+
+# Reuse dictionary definition window
+defaults write com.apple.Dictionary ProhibitNewWindowForRequest -boolean true
+
+# Disable smart quotes and dashes
+defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
+defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
 
 ###############################################################################
 # Menubar                                                                     #
@@ -105,6 +114,10 @@ defaults write com.apple.menuextra.battery ShowTime -string "YES"
 # Terminal                                                                    #
 ###############################################################################
 echo ":: OSX: SETTING UP TERMINAL ::"
+
+# Terminal windows take focus with mouse over window:
+defaults write com.apple.terminal FocusFollowsMouse -string YES
+
 # Only use UTF-8 in Terminal.app
 defaults write com.apple.terminal StringEncodings -array 4
 
@@ -603,6 +616,17 @@ defaults write com.apple.TextEdit PlainTextEncodingForWrite -int 4
 # Enable the debug menu in Disk Utility
 defaults write com.apple.DiskUtility DUDebugMenuEnabled -bool true
 defaults write com.apple.DiskUtility advanced-image-options -bool true
+
+###############################################################################
+# XCODE                                                                       #
+###############################################################################
+echo ":: OSX: SETTING UP XCODE ::"
+
+# Always use tabs for indenting
+defaults write com.apple.dt.Xcode DVTTextIndentUsingTabs -bool true
+
+# Show tab bar
+defaults write com.apple.dt.Xcode AlwaysShowTabBar -bool true
 
 ###############################################################################
 # SSD                                                                         #

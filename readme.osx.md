@@ -9,6 +9,7 @@ The following tweaks are made to OSX with this configuration.
 - Prompt for "Are you sure you want to open this application?" will be disabled.
 - Locale set to en-us (language, currency, measurements, metric disabled)
 - Timezone set to Los Angeles
+- Time set to display in 24-hour format
 - Apple Watch and iOS Simulator added to Launchpad
 - Disk Utility
     + Debug menu enabled
@@ -16,6 +17,8 @@ The following tweaks are made to OSX with this configuration.
 - QuickTime videos will auto-play when opened
 - iTunes dock notification for tracks turned on
 - Inline attachments disabled in Mail.app (just shows the icon)
+- Dictionary windows are re-used
+- Smart Quotes and Smart Dashes are universally disabled, because code that's why
 
 ## Menubar
 - Transparency disabled
@@ -28,6 +31,7 @@ The following tweaks are made to OSX with this configuration.
 
 ## Terminal
 - Set to UTF-8
+- Terminal window takes focus when mouse hovers
 - [osx/terminal/Visor.terminal](osx/terminal/Visor.terminal) for use with [Total Terminal](http://totalterminal.binaryage.com/) installed and set as default
 - Secure keyboard entry enabled
 
@@ -173,6 +177,10 @@ The following tweaks are made to OSX with this configuration.
 - New Tweet window can be closed by hitting `ESC`
 - Full names are shown rather than handle
 - App hidden in background if not the foremost window
+
+## XCode
+- Always uses tabs for spacing (don't even talk to me about this, you space-mouth-breathers)
+- Always shows tab bar
 
 ## SSD
 - Sudden Motion sensor is disabled (not useful for SSDs)
