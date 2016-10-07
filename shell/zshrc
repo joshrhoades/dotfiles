@@ -1,8 +1,8 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-# Path to your oh-my-zsh installation.
-export ZSH=/Users/joshua.rhoades/.oh-my-zsh
+# Path to your oh-my-zsh configuration.
+export ZSH=$HOME/.oh-my-zsh
 
 # Set DEFAULT_USER in ~/.zshrc to your regular username to hide “user@hostname” when logged in as yourself on the machine
 export DEFAULT_USER=``
@@ -10,7 +10,6 @@ export DEFAULT_USER=``
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-#ZSH_THEME="materialshell-dark"
 ZSH_THEME="powerlevel9k/powerlevel9k"
 
 # Uncomment the following line to use case-sensitive completion.
@@ -255,53 +254,10 @@ POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(custom_wifi_signal battery ip time)
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-# profile controls
-alias reloadProfile='. ~/.zshrc'
-alias editProfile='st ~/.zshrc'
-
-# GIT: turn CRLF off for some repos that use windows lines
-alias gitCRLFOff='git config --global core.autocrlf false'
-
-# GIT: turn CRLF back on for all the good little repos
-alias gitCRLFOn='git config --global core.autocrlf true'
-
-# GIT: Check to see what CRLF state git is in
-alias gitCRLFState='git config --global core.autocrlf'
-
-# stop accidentally doing a ping of death
-alias ping='ping -c 5'
-
-# setup simple web server from current location
-alias servethis="python -c 'import SimpleHTTPServer; SimpleHTTPServer.test()'"
-
-# Show list commands as desired
-ls () {
-	command ls -CFGAhp $@
-}
-
 # Make any CD operation list files after completing
 function chpwd() {
   ls
 }
-
-# Make destructive commands safer
-alias rm='rm -i'
-
-# Turn hidden files on or off
-function hiddenOn() { defaults write com.apple.Finder AppleShowAllFiles YES ; }
-function hiddenOff() { defaults write com.apple.Finder AppleShowAllFiles NO ; }
-
-# nice mount (http://catonmat.net/blog/another-ten-one-liners-from-commandlingfu-explained)
-# displays mounted drive information in a nicely formatted manner
-function nicemount() { (echo "DEVICE PATH TYPE FLAGS" && mount | awk '$2="";1') | column -t ; }
-
-# view man pages in Preview
-function pman() { ps=`mktemp -t manpageXXXX`.ps ; man -t $@ > "$ps" ; open "$ps" ; }
-
-#Apache
-alias webStart='sudo apachectl start'
-alias webStop='sudo apachectl stop'
-alias webBounce='sudo apachectl restart'
 
 source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

@@ -2,12 +2,31 @@
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias localip="ipconfig getifaddr en1"
 alias myip="ifconfig | grep 'inet ' | grep -v 127.0.0.1 | awk '{print \$2}'"
+alias dig="dig +nocmd any +multiline +noall +answer"
 
+# View HTTP traffic
+alias sniff="sudo ngrep -W byline -d 'en0' -t '^(GET|POST) ' 'tcp and port 80'"
+alias httpdump="sudo tcpdump -i en0 -n -s 0 -w - | grep -a -o -E \"Host\: .*|GET \/.*\""
+
+# Enhanced WHOIS lookups
+alias whois="whois -h whois-servers.net"
+
+# see top
 alias htop='sudo htop'
+
+# edit hosts
 alias hosts='sudo $EDITOR /etc/hosts'
 
 # Flush DNS cache
 alias flushdns="dscacheutil -flushcache"
+
+# Make destructive commands safer
+alias rm='rm -i'
+
+# Show list commands as desired
+ls () {
+	command ls -CFGAhp $@
+}
 
 # Copy my public key to the pasteboard
 alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | printf '=> Public key copied to pasteboard.\n'"
@@ -23,9 +42,6 @@ function git_list_branches() {
   done | sort;
 }
 
-# Enhanced WHOIS lookups
-alias whois="whois -h whois-servers.net"
-
 # Recursively delete `.DS_Store` files
 alias cleanup_dsstore="find . -name '*.DS_Store' -type f -ls -delete"
 
@@ -35,6 +51,13 @@ alias free_diskspace_report="diskspace_report"
 
 # File size
 alias fs="stat -f \"%z bytes\""
+
+# nice mount (http://catonmat.net/blog/another-ten-one-liners-from-commandlingfu-explained)
+# displays mounted drive information in a nicely formatted manner
+function nicemount() { (echo "DEVICE PATH TYPE FLAGS" && mount | awk '$2="";1') | column -t ; }
+
+# view man pages in Preview
+function pman() { ps=`mktemp -t manpageXXXX`.ps ; man -t $@ > "$ps" ; open "$ps" ; }
 
 # Empty the Trash on all mounted volumes and the main HDD.
 # Also, clear Apple’s System Logs & the useless sleepimage to improve shell startup speed
@@ -55,6 +78,26 @@ alias reload="source ~/.zshrc && echo ':: SHELL RELOADED FROM ~/.zshrc ::'"
 # zsh.local config
 alias localrc="if [[ -a ~/.zsh.local ]]; then ${EDITOR} ~/.zsh.local; fi"
 
-# Update installed Ruby gems, Homebrew, npm, and their installed packages
+# Update installed Homebrew, npm, and their installed packages
 alias brew_update="brew -v update; brew upgrade --force-bottle --cleanup; brew cleanup; brew cask cleanup; brew prune; brew doctor; npm-check -g -u"
 alias update_brew_npm_gem='brew_update; npm install npm -g; npm update -g;'
+
+# stop accidentally doing a ping of death
+alias ping='ping -c 5'
+
+# setup simple web server from current location
+alias servethis="python -c 'import SimpleHTTPServer; SimpleHTTPServer.test()'"
+
+#Apache
+alias webStart='sudo apachectl start'
+alias webStop='sudo apachectl stop'
+alias webBounce='sudo apachectl restart'
+
+# Gist
+alias gist-paste="gist --private --copy --paste --filename"  # gist-paste filename.ext -- create private Gist from the clipboard contents
+alias gist-file="gist --private --copy"  # gist-file filename.ext -- create private Gist from a file
+
+# HTTP Requests. One of @janmoesen’s ProTip™s
+for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
+  alias "$method"="lwp-request -m '$method'"
+done
