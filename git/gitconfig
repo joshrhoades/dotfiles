@@ -106,7 +106,7 @@ retag = "!f() { \
     tool = opendiff
 
 [core]
-    editor = nano
+    editor = "sublime -n -w"
     abbrev = 12
     attributesfile = ~/.gitattributes
     excludesfile = ~/.gitignore
