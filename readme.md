@@ -21,6 +21,7 @@ If any others beyond myself wish to leverage this particular dotfiles, then be a
 - [x] Migrate from my beloved [Caffeine](http://lightheadsw.com/caffeine/) to Amphetamine (App Store)
 - [x] Migrate to CLI HOSTs editing, or keep using [Gas Mask](https://github.com/2ndalpha/gasmask)?
 - [ ] Migrate from iStat Nano to CLI (partially solved with [htop](https://github.com/hishamhm/htop))
+- [ ] Find replacement for [SIP.app](http://sipapp.io/) that can be scripted for install, though technically I could let this be taken care of by syncing from the Mac App Store.
 
 ## Pre-Installation: Install XCode CLI Tools
 ```sh
