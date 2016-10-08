@@ -19,6 +19,7 @@ The following tweaks are made to OSX with this configuration.
 - Inline attachments disabled in Mail.app (just shows the icon)
 - Dictionary windows are re-used
 - Smart Quotes and Smart Dashes are universally disabled, because code that's why
+- Automatically quit printer app when print jobs complete
 
 ## Menubar
 - Transparency disabled
@@ -75,11 +76,14 @@ The following tweaks are made to OSX with this configuration.
 - Key Repeat set to ridiculous pure f'n speed
 - Press and Hold for special keys disabled for key repeat
 - Tap To Click default enabled for the current user, _and_ enabled for the login screen (I hate when it isn't)
+- Trackpad: swipe between pages with 3-fingers
+- Mouse Speed: set to what I like it to be
+- Trackpad Speed: set to what I like it to be
 
 ## Screen
 - Password required immediately after wake or screen saver end
 - Screenshots
-    + Saved to `~/Desktop/screenshots`
+    + Saved to `~/Downloads/screenshots`
     + Default to `.png`
     + Shadow disabled for screenshots
 - Sub-pixel rendering enabled for non-Apple screens
@@ -137,6 +141,7 @@ The following tweaks are made to OSX with this configuration.
     + Top Right → Application Windows
     + Bottom Left → Start screen saver
     + Bottom Right → Show desktop
+- Tile size for icons is set to 36
 
 ## App Store
 - WebKit Developer Tools enabled

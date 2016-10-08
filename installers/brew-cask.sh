@@ -23,6 +23,7 @@ apps=(
 	fantastical
 	firefox
 	firefoxnightly
+	flash-player
 	glimmerblocker
 	google-chrome
 	google-chrome-canary
@@ -38,6 +39,7 @@ apps=(
 	omnifocus
 	omnigraffle
 	omniplan
+	silverlight
 	skype
 	slack
 	sublime-text

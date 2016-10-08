@@ -35,9 +35,6 @@ echo ":: OSX: SETTING UP GENERAL SETTINGS ::"
 # Set standby delay to 24 hours (default is 3 hours, 10800)
 sudo pmset -a standbydelay 86400
 
-# set dark mode for the dock
-defaults write NSGlobalDomain AppleInterfaceStyle Dark
-
 # set highlight color to default blue
 defaults delete -g AppleHighlightColor
 
@@ -70,8 +67,10 @@ sudo ln -sf "/Applications/Xcode.app/Contents/Developer/Applications/Simulator (
 # Auto-play videos when opened with QuickTime Player
 defaults write com.apple.QuickTimePlayerX MGPlayMovieOnOpen -bool true
 
-# Enable iTunes track notifications in the Dock
+# Enable iTunes track notifications in the Dock and show the logo
+# this doesn't work anymore with notification center, I don't think
 defaults write com.apple.dock itunes-notifications -bool true
+defaults write com.apple.dock notification-always-show-image -bool true
 
 # Reuse dictionary definition window
 defaults write com.apple.Dictionary ProhibitNewWindowForRequest -boolean true
@@ -79,6 +78,9 @@ defaults write com.apple.Dictionary ProhibitNewWindowForRequest -boolean true
 # Disable smart quotes and dashes
 defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
 defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
+
+# Automatically quit printer queue when print jobs complete
+defaults write com.apple.print.PrintingPrefs “Quit When Finished” -bool true
 
 ###############################################################################
 # Menubar                                                                     #
@@ -116,24 +118,23 @@ defaults write com.apple.menuextra.battery ShowTime -string "YES"
 echo ":: OSX: SETTING UP TERMINAL ::"
 
 # Terminal windows take focus with mouse over window:
-defaults write com.apple.terminal FocusFollowsMouse -string YES
+defaults write com.apple.Terminal FocusFollowsMouse -bool true
 
 # Only use UTF-8 in Terminal.app
-defaults write com.apple.terminal StringEncodings -array 4
+defaults write com.apple.Terminal StringEncodings -array 4
 
 # Install the Visor (Material Dark for use with TotalTerminal) theme for terminal. iTerm can suck it.
 open "${HOME}/dotfiles/osx/terminal/Visor.terminal"
-
 # wait a bit
 sleep 1
 
 # set the newly imported Visor theme as default
-defaults write com.apple.terminal "Default Window Settings" -string "Visor"
-defaults write com.apple.terminal "Startup Window Settings" -string "Visor"
+defaults write com.apple.Terminal "Default Window Settings" -string "Visor"
+defaults write com.apple.Terminal "Startup Window Settings" -string "Visor"
 
 # Enable Secure Keyboard Entry in Terminal.app
 # See: https://security.stackexchange.com/a/47786/8918
-defaults write com.apple.terminal SecureKeyboardEntry -bool true
+defaults write com.apple.Terminal SecureKeyboardEntry -bool true
 
 ###############################################################################
 # Time Machine                                                                #
@@ -239,6 +240,14 @@ defaults write com.apple.ActivityMonitor SortDirection -int 0
 # Interfaces: trackpad, mouse, keyboard, bluetooth, etc.
 ###############################################################################
 echo ":: OSX: SETTING UP DEVICES AND INPUTS ::"
+
+# set my mouse and trackpad speed the way I like it
+defaults write -g com.apple.mouse.scaling 2
+defaults write -g com.apple.trackpad.scaling 1.5
+
+# turn off keyboard illumination when not used for 5 minutes
+defaults write com.apple.BezelServices kDimTime -int 300
+
 # Disable “natural” (Lion-style) scrolling
 defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
 
@@ -257,6 +266,11 @@ defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool
 defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 
+# set three-finger swipe between pages for trackpad and BT trackpads
+defaults write NSGlobalDomain AppleEnableSwipeNavigateWithScrolls -bool true
+defaults -currentHost write NSGlobalDomain com.apple.trackpad.threeFingerHorizSwipeGesture -int 1
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerHorizSwipeGesture -int 1
+
 ###############################################################################
 # Screen
 ###############################################################################
@@ -266,7 +280,8 @@ defaults write com.apple.screensaver askForPassword -int 1
 defaults write com.apple.screensaver askForPasswordDelay -int 0
 
 # Save screenshots to desktop/screenshots as PNG and disable the horrific drop-shadow.
-defaults write com.apple.screencapture location -string "${HOME}/Desktop/screenshots"
+mkdir -p "${HOME}/Downloads/screenshots"
+defaults write com.apple.screencapture location -string "${HOME}/Downloads/screenshots"
 defaults write com.apple.screencapture type -string "png"
 defaults write com.apple.screencapture disable-shadow -bool true
 
@@ -319,7 +334,7 @@ defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true
 # first, drop all DS_STORE files that are storing different views in different directories
 find ./ -name ".DS_Store" -depth -exec rm {} \;
 # now reset all views to column
-defaults write com.apple.Finder FXPreferredViewStyle clmv
+defaults write com.apple.finder FXPreferredViewStyle Clmv
 
 # Show hidden files and file extensions by default
 defaults write com.apple.finder AppleShowAllFiles -bool true
@@ -408,6 +423,10 @@ defaults write com.apple.frameworks.diskimages skip-verify-remote -bool true
 # Dock                                                                        #
 ###############################################################################
 echo ":: OSX: SETTING UP DOCK ::"
+
+# set dark mode for the dock
+defaults write NSGlobalDomain AppleInterfaceStyle Dark
+
 # Enable highlight hover effect for the grid view of a stack (Dock)
 defaults write com.apple.dock mouse-over-hilite-stack -bool true
 
@@ -442,6 +461,9 @@ defaults write com.apple.dock autohide-time-modifier -float 0
 # Make Dock icons of hidden applications translucent
 defaults write com.apple.dock showhidden -bool true
 
+# Set tilesize to 36
+defaults write com.apple.dock tilesize -int 36
+
 # Hot corners
 # Possible values:
 #   0: no-op
@@ -466,6 +488,9 @@ defaults write com.apple.dock wvous-bl-modifier -int 0
 # Bottom right screen corner → Show desktop
 defaults write com.apple.dock wvous-bl-corner -int 4
 defaults write com.apple.dock wvous-bl-modifier -int 0
+
+# Add sublime to dock
+defaults write com.apple.dock persistent-apps -array-add '<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>/Applications/Sublime Text.app</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>'
 
 ###############################################################################
 # Mac App Store                                                               #
@@ -546,9 +571,15 @@ defaults write com.google.Chrome.canary PMPrintingExpandedStateForPrint2 -bool t
 # Transmission.app                                                            #
 ###############################################################################
 echo ":: OSX: SETTING UP TRANSMISSION ::"
-# Use `~/Documents/Torrents` to store incomplete downloads
+
+# Store in ~/Downloads
+mkdir -p "${HOME}/Downloads/torrents"
+defaults write org.m0k.transmission AutoImportDirectory -string "${HOME}/Downloads/torrents"
+
+# Use `~/Downloads/Torrents/Incomplete` to store incomplete downloads
+mkdir -p "${HOME}/Downloads/torrents/incomplete"
 defaults write org.m0k.transmission UseIncompleteDownloadFolder -bool true
-defaults write org.m0k.transmission IncompleteDownloadFolder -string "${HOME}/Documents/Torrents"
+defaults write org.m0k.transmission IncompleteDownloadFolder -string "${HOME}/Downloads/torrents/incomplete"
 
 # Don’t prompt for confirmation before downloading
 defaults write org.m0k.transmission DownloadAsk -bool false
@@ -559,8 +590,12 @@ defaults write org.m0k.transmission DeleteOriginalTorrent -bool true
 
 # Hide the donate message
 defaults write org.m0k.transmission WarningDonate -bool false
+
 # Hide the legal disclaimer
 defaults write org.m0k.transmission WarningLegal -bool false
+
+# Auto-reisze window to fit transfers
+defaults write org.m0k.transmission AutoSize -bool true
 
 # IP block list.
 # Source: https://giuliomac.wordpress.com/2014/02/19/best-blocklist-for-transmission/
@@ -636,15 +671,16 @@ defaults write com.apple.dt.Xcode AlwaysShowTabBar -bool true
 echo ":: OSX SSD: DISABLING TIME MACHINE SNAPSHOTS ::"
 sudo tmutil disablelocal
 
-# Turn off hibernation [laptops only]
+# Hibernation and sleepimage
 echo ":: OSX SSD: DISABLING HIBERNATION ::"
+# Turn off hibernation [laptops only]
 sudo pmset -a hibernatemode 0
 # Remove the sleep image file to save disk space
-sudo command rm /var/vm/sleepimage
+#sudo command rm /var/vm/sleepimage
 # Create a zero-byte file instead…
-sudo touch /private/var/vm/sleepimage
+#sudo touch /private/var/vm/sleepimage
 # …and make sure it can’t be rewritten
-sudo chflags uchg /private/var/vm/sleepimage
+#sudo chflags uchg /private/var/vm/sleepimage
 
 # Turn off sudden motion sensor [no HDD only]
 echo ":: OSX SSD: DISABLING SUDDEN MOTION SENSOR ::"
