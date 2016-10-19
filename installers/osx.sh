@@ -118,7 +118,7 @@ defaults write com.apple.menuextra.battery ShowTime -string "YES"
 echo ":: OSX: SETTING UP TERMINAL ::"
 
 # Terminal windows take focus with mouse over window:
-defaults write com.apple.Terminal FocusFollowsMouse -bool true
+#defaults write com.apple.Terminal FocusFollowsMouse -bool true
 
 # Only use UTF-8 in Terminal.app
 defaults write com.apple.Terminal StringEncodings -array 4
@@ -246,7 +246,7 @@ defaults write -g com.apple.mouse.scaling 2
 defaults write -g com.apple.trackpad.scaling 1.5
 
 # turn off keyboard illumination when not used for 5 minutes
-defaults write com.apple.BezelServices kDimTime -int 300
+#defaults write com.apple.BezelServices kDimTime -int 300
 
 # Disable “natural” (Lion-style) scrolling
 defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
@@ -256,10 +256,10 @@ defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
 defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
 
 # Set a really fast keyboard repeat rate.
-defaults write -g KeyRepeat -int 0
+#defaults write -g KeyRepeat -int 0
 
 # Disable press-and-hold for keys in favor of key repeat.
-defaults write -g ApplePressAndHoldEnabled -bool false
+#efaults write -g ApplePressAndHoldEnabled -bool false
 
 # Enable tap to click (Trackpad) for this user and for the login screen
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
@@ -362,7 +362,7 @@ defaults write NSGlobalDomain PMPrintingExpandedStateForPrint -bool true
 defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
 
 # Disable Resume system-wide
-defaults write com.apple.systempreferences NSQuitAlwaysKeepsWindows -bool false
+#defaults write com.apple.systempreferences NSQuitAlwaysKeepsWindows -bool false
 
 # Disable the crash reporter
 defaults write com.apple.CrashReporter DialogType -string "none"
