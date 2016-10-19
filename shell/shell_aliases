@@ -31,7 +31,7 @@ ls () {
 # Copy my public key to the pasteboard
 alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | printf '=> Public key copied to pasteboard.\n'"
 
-# List git branches on the local machine sorted by recent updates, adding a star to remote tracking branches
+# GIT: List git branches on the local machine sorted by recent updates, adding a star to remote tracking branches
 function git_list_branches() {
   RED="\e[91m";
   for branch in $(git branch | sed s/^..//); do
@@ -41,6 +41,8 @@ function git_list_branches() {
     printf "%-53s - %s %s\n" $time_ago $branch $tracks_upstream;
   done | sort;
 }
+# GIT: Create new branch and check it out
+alias gnb='git checkout -b'
 
 # Recursively delete `.DS_Store` files
 alias cleanup_dsstore="find . -name '*.DS_Store' -type f -ls -delete"
