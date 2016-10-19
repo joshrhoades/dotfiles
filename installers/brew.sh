@@ -50,6 +50,7 @@ apps=(
 	source-highlight
 	speedtest_cli
 	thefuck
+	unix2dos
 	wget
 	wifi-password
 	zsh
