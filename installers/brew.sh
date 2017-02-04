@@ -42,6 +42,7 @@ apps=(
 	htop
 	hub
 	markdown
+	mas
 	mongodb
 	moreutils
 	nvm
